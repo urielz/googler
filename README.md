@@ -2,17 +2,15 @@
 
 <p align="center">
 <a href="https://github.com/jarun/googler/releases/latest"><img src="https://img.shields.io/github/release/jarun/googler.svg?maxAge=600" alt="Latest release" /></a>
-<a href="https://aur.archlinux.org/packages/googler"><img src="https://img.shields.io/aur/version/googler.svg?maxAge=600" alt="AUR" /></a>
-<a href="http://formulae.brew.sh/formula/googler"><img src="https://img.shields.io/homebrew/v/googler.svg?maxAge=600" alt="Homebrew" /></a>
-<a href="https://packages.debian.org/search?keywords=googler&searchon=names"><img src="https://img.shields.io/badge/debian-9+-blue.svg?maxAge=2592000" alt="Debian Stretch+" /></a>
-<a href="https://packages.ubuntu.com/search?keywords=googler&searchon=names"><img src="https://img.shields.io/badge/ubuntu-16.10+-blue.svg?maxAge=2592000" alt="Ubuntu Yakkety+" /></a>
-<a href="https://launchpad.net/~twodopeshaggy/+archive/ubuntu/jarun/"><img src="https://img.shields.io/badge/ubuntu-PPA-blue.svg?maxAge=2592000" alt="Ubuntu PPA" /></a>
+<a href="https://repology.org/project/googler/versions"><img src="https://repology.org/badge/tiny-repos/googler.svg" alt="Availability"></a>
 <a href="https://github.com/jarun/googler/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-yellow.svg?maxAge=2592000" alt="License" /></a>
-<a href="https://travis-ci.org/jarun/googler"><img src="https://travis-ci.org/jarun/googler.svg?branch=master" alt="Build Status" /></a>
+<a href="https://circleci.com/gh/jarun/workflows/googler"><img src="https://img.shields.io/circleci/project/github/jarun/googler.svg" alt="Build Status" /></a>
+<a href="https://repl.it/github/jarun/googler"><img src="https://repl.it/badge/github/jarun/googler?maxAge=2592000" alt="Repl.it" /></a>
+
 </p>
 
 <p align="center">
-<a href="https://asciinema.org/a/85019"><img src="https://s1.postimg.org/1hg2x1dqrj/googler.png" alt="Asciicast" width="734"/></a>
+<a href="https://asciinema.org/a/85019"><img src="https://i.imgur.com/EbZof9q.png" alt="Asciicast" width="734"/></a>
 </p>
 
 `googler` is a power tool to Google (Web & News) and Google Site Search from the command-line. It shows the title, URL and abstract for each result, which can be directly opened in a browser from the terminal. Results are fetched in pages (with page navigation). Supports sequential searches in a single `googler` instance.
@@ -21,13 +19,18 @@
 
 `googler` isn't affiliated to Google in any way.
 
-*Looking for a similar utility for privacy-aware DuckDuckGo?* Check out [`ddgr`](https://github.com/jarun/ddgr)!
+More fun stuff you can try with `googler`:
 
-*Love smart and efficient terminal utilities? Explore my repositories. Buy me a cup of coffee if they help you.*
+- [googler on the iPad](https://github.com/jarun/googler/wiki/googler-on-the-iPad)
+- [Print content of results to terminal or listen to it](https://github.com/jarun/googler/wiki/Print-content-of-results-to-terminal-or-listen-to-it)
+- [Terminal Reading Mode or Reader View](https://github.com/jarun/googler/wiki/Terminal-Reading-Mode-or-Reader-View)
+- [Stream YouTube videos on desktop](https://github.com/jarun/googler/wiki/Stream-YouTube-videos-on-desktop)
+- [Search error on StackOverflow from terminal](https://github.com/jarun/googler/wiki/Search-error-on-StackOverflow-from-terminal)
+
+*Love smart and efficient utilities? Explore [my repositories](https://github.com/jarun?tab=repositories). Buy me a cup of coffee if they help you.*
 
 <p align="center">
-<a href="https://saythanks.io/to/jarun"><img src="https://img.shields.io/badge/say-thanks!-ff69b4.svg" /></a>
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RMLTQ76JSXJ4Q"><img src="https://img.shields.io/badge/Donate-$5-green.svg" alt="Donate via PayPal!" /></a>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RMLTQ76JSXJ4Q"><img src="https://img.shields.io/badge/PayPal-donate-1eb0fc.svg" alt="Donate via PayPal!" /></a>
 </p>
 
 ### Table of contents
@@ -47,7 +50,6 @@
     - [Configuration file](#configuration-file)
     - [googler @t](#googler-t)
     - [Text-based browser integration](#text-based-browser-integration)
-    - [Terminal Reading Mode or Reader View](#terminal-reading-mode-or-reader-view)
     - [Colors](#colors)
     - [Domain-only URL](#domain-only-url)
 - [Examples](#examples)
@@ -77,19 +79,25 @@
 
 #### Dependencies
 
-`googler` requires Python 3.4 or later. Only the latest patch release of each minor version is supported.
+`googler` requires Python 3.5 or later. Only the latest patch release of each minor version is supported.
+
+To copy url to clipboard at the omniprompt, `googler` looks for `xsel` or `xclip` or `termux-clipboard-set` (in the same order) on Linux, `pbcopy` (default installed) on macOS and `clip` (default installed) on Windows. It also supports GNU Screen and tmux copy-paste buffers in the absence of X11.
 
 #### From a package manager
 
-- [AUR](https://aur.archlinux.org/packages/googler/)
-- [Debian](https://packages.debian.org/search?keywords=googler&searchon=names)
-- [FreeBSD](https://www.freshports.org/www/googler/) (`pkg install googler`)
-- [Homebrew](http://formulae.brew.sh/formula/googler)
-- [NixOS](https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/misc/googler) (`sudo nix-env -i googler`)
-- [openSUSE](https://software.opensuse.org/package/googler)
-- [Slackware](http://slackbuilds.org/repository/14.2/network/googler/)
-- [Ubuntu](https://packages.ubuntu.com/search?keywords=googler&searchon=names)
-- [Ubuntu PPA](https://launchpad.net/~twodopeshaggy/+archive/ubuntu/jarun/)
+Install `googler` from your package manager. If the version available is dated try an alternative installation method.
+
+<details><summary>Packaging status (expand)</summary>
+<p>
+<br>
+<a href="https://repology.org/project/googler/versions"><img src="https://repology.org/badge/vertical-allrepos/googler.svg" alt="Packaging status"></a>
+</p>
+Unlisted packagers:
+<p>
+<br>
+● <a href="https://snapcraft.io/googler">Snap Store</a> (<code>snap install googler</code>)<br>
+</p>
+</details>
 
 ##### Tips for packagers
 
@@ -101,7 +109,7 @@ before installation.
 
 #### Release packages
 
-Packages for Arch Linux, CentOS, Debian, Fedora and Ubuntu are available with the [latest stable release](https://github.com/jarun/googler/releases/latest).
+Packages for Arch Linux, CentOS, Debian, Fedora, openSUSE and Ubuntu are available with the [latest stable release](https://github.com/jarun/googler/releases/latest).
 
 #### From source
 
@@ -119,7 +127,7 @@ To remove `googler` and associated docs, run
 
 #### Running standalone
 
-`googler` is a standalone executable. From the containing directory:
+`googler` is a standalone executable (and can run even on environments like Termux). From the containing directory:
 
     $ ./googler
 
@@ -129,7 +137,7 @@ To remove `googler` and associated docs, run
 
 To install the latest stable version, run
 
-    $ sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v3.4/googler && sudo chmod +x /usr/local/bin/googler
+    $ sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.0/googler && sudo chmod +x /usr/local/bin/googler
 
 You could then let googler upgrade itself by running
 
@@ -152,10 +160,11 @@ Search keyword and option completion scripts for Bash, Fish and Zsh can be found
 #### Cmdline options
 
 ```
-usage: googler [-h] [-s N] [-n N] [-N] [-c TLD] [-l LANG] [-x] [-C]
-               [--colors COLORS] [-j] [-t dN] [-w SITE] [--unfilter]
-               [-p PROXY] [--noua] [--notweak] [--json] [--url-handler UTIL]
-               [--show-browser-logs] [--np] [-u] [--include-git] [-v] [-d]
+usage: googler [-h] [-s N] [-n N] [-N] [-c TLD] [-l LANG] [-x]
+               [--colorize [{auto,always,never}]] [-C] [--colors COLORS] [-j]
+               [-t dN] [-w SITE] [--unfilter] [-p PROXY] [--noua] [--notweak]
+               [--json] [--url-handler UTIL] [--show-browser-logs] [--np] [-u]
+               [--include-git] [-v] [-d]
                [KEYWORD [KEYWORD ...]]
 
 Google from the command-line.
@@ -172,7 +181,12 @@ optional arguments:
                         e.g., 'in' for India
   -l LANG, --lang LANG  display in language LANG
   -x, --exact           disable automatic spelling correction
-  -C, --nocolor         disable color output
+  --colorize [{auto,always,never}]
+                        whether to colorize output; defaults to 'auto', which
+                        enables color when stdout is a tty device; using
+                        --colorize without an argument is equivalent to
+                        --colorize=always
+  -C, --nocolor         equivalent to --colorize=never
   --colors COLORS       set output colors (see man page for details)
   -j, --first, --lucky  open the first result in web browser and exit
   -t dN, --time dN      time limit search [h5 (5 hrs), d5 (5 days), w5 (5
@@ -182,14 +196,14 @@ optional arguments:
   -p PROXY, --proxy PROXY
                         tunnel traffic through an HTTP proxy; PROXY is of the
                         form [http://][user:password@]proxyhost[:port]
-  --noua                disable user agent
+  --noua                legacy option (no effect)
   --notweak             disable TCP optimizations and forced TLS 1.2
   --json                output in JSON format; implies --noprompt
   --url-handler UTIL    custom script or cli utility to open results
   --show-browser-logs   do not suppress browser output (stdout and stderr)
   --np, --noprompt      search and exit, do not prompt
   -u, --upgrade         perform in-place self-upgrade
-  --include-git         when used with --upgrade, upgrade to latest git master
+  --include-git         when used with --upgrade, get latest git master
   -v, --version         show program's version number and exit
   -d, --debug           enable debugging
 
@@ -203,6 +217,7 @@ omniprompt keys:
   O [index|range|a ...] like key 'o', but try to open in a GUI browser
   g keywords            new Google search for 'keywords' with original options
                         should be used to search omniprompt keys and indices
+  c index               copy url to clipboard
   u                     toggle url expansion
   q, ^D, double Enter   exit googler
   ?                     show omniprompt help
@@ -252,10 +267,6 @@ or for one-time use,
 Due to certain graphical browsers spewing messages to the console, `googler` suppresses browser output by default unless `BROWSER` is set to one of the known text-based browsers: currently `elinks`, `links`, `lynx`, `w3m` or `www-browser`. If you use a different text-based browser, you will need to explicitly enable browser output with the `--show-browser-logs` option. If you believe your browser is popular enough, please submit an issue or pull request and we will consider whitelisting it. See the man page for more details on `--show-browser-logs`.
 
 If you need to use a GUI browser with `BROWSER` set, use the omniprompt key `O`. `googler` will try to ignore text-based browsers and invoke a GUI browser. Browser logs are always suppressed with `O`.
-
-#### Terminal Reading Mode or Reader View
-
-You can easily integrate `googler` with some equally awesome utilities to enjoy your daily dose of news in a completely distraction-free environment. Read more [in the wiki](https://github.com/jarun/googler/wiki/Terminal-Reading-Mode-or-Reader-View).
 
 #### Colors
 
@@ -403,17 +414,22 @@ To show the domain names in search results instead of the expanded URL (and use 
 
 3. Google News service is not available if the language is `dk` (Denmark), `fi` (Finland) or `is` (Iceland). Use `-l en`. Please refer to #187 for more information.
 
-4. Some users have reported problems with a colored omniprompt (refer to issue [#203](https://github.com/jarun/googler/issues/203)) with iTerm2 on OS X. To force a plain omniprompt:
+4. Some users have reported problems with a colored omniprompt (refer to issue [#203](https://github.com/jarun/googler/issues/203)) with iTerm2 on macOS. To force a plain omniprompt:
 
        export DISABLE_PROMPT_COLOR=1
 
 ### Notes
 
-1. Initially I raised a pull request but I could see that the last change was made 7 years earlier. In addition, there is no GitHub activity from the original author [Henri Hakkinen](https://github.com/henux) in past year. I have created this independent repo for the project with the name `googler`. I retained the original copyright information.
+1. Initially I raised a pull request but I could see that the last change was made 7 years earlier. In addition, there is no GitHub activity from the original author [Henri Hakkinen](https://github.com/henux) in past year. I have created this independent repo for the project with the name `googler`. I retained the original copyright information (though `googler` is organically different now).
 
 2. Google provides a search API which returns the results in JSON format. However, as per my understanding from the [official docs](https://developers.google.com/custom-search/json-api/v1/overview), the API issues the queries against an existing instance of a custom search engine and is limited by 100 search queries per day for free. In addition, I have reservations in paying if they ever change their plan or restrict the API in other ways. So I refrained from coupling with Google plans & policies or exposing my trackable personal custom search API key and identifier for the public. I retained the browser-way of doing it by fetching html, which is a open and free specification.
 
 3. You can find a rofi script for `googler` [here](http://hastebin.com/fonowacija.bash). Written by an anonymous user, untested and we don't maintain it.
+
+4. The Albert Launcher python plugins repo
+([awesome-albert-plugins](https://github.com/bergercookie/awesome-albert-plugins))
+includes suggestions-enabled search plugins for a variety of websites using
+googler. Refer to the latter for demos and usage instructions.
 
 ### Contributions
 
@@ -424,7 +440,7 @@ Pull requests are welcome. Please visit [#209](https://github.com/jarun/googler/
 ### Developers
 
 1. Copyright © 2008 Henri Hakkinen
-2. Copyright © 2015-2017 [Arun Prakash Jana](https://github.com/jarun)
+2. Copyright © 2015-2020 [Arun Prakash Jana](https://github.com/jarun)
 3. [Zhiming Wang](https://github.com/zmwangx)
 4. [Johnathan Jenkins](https://github.com/shaggytwodope)
 5. [SZ Lin](https://github.com/szlin)
