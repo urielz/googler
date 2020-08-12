@@ -7,12 +7,11 @@ commands:
   install:
     - make PREFIX="/usr" install DESTDIR="${BP_DESTDIR}"
 packages:
-  archlinux:
-    builddeps:
-      - make
-    deps:
-      - python
-    container: "archlinux/base"
+#  archlinux:
+#    builddeps:
+#      - make
+#    deps:
+#      - python
   centos7.5:
     builddeps:
       - make
@@ -23,11 +22,19 @@ packages:
       - make
     deps:
       - python
-  debian8:
+  centos7.7:
+    builddeps:
+      - make
+    deps:
+      - python
+  centos8.0:
     builddeps:
       - make
     deps:
       - python3
+    commands:
+      precompile:
+        - dnf install python3
   debian9:
     builddeps:
       - make
@@ -38,52 +45,27 @@ packages:
       - make
     deps:
       - python3
-  fedora25:
-    builddeps:
-      - make
-    deps:
-      - python3
-  fedora26:
-    builddeps:
-      - make
-    deps:
-      - python3
-  fedora27:
-    builddeps:
-      - make
-    deps:
-      - python3
-  fedora28:
-    builddeps:
-      - make
-    deps:
-      - python3
-  fedora29:
-    builddeps:
-      - make
-    deps:
-      - python3
-  fedora30:
-    builddeps:
-      - make
-    deps:
-      - python3
   fedora31:
     builddeps:
       - make
     deps:
       - python3
-  opensuse42.3:
+  fedora32:
     builddeps:
       - make
     deps:
       - python3
-  opensuse15.0:
+  opensuse15.1:
     builddeps:
       - make
     deps:
       - python3
-  ubuntu14.04:
+  opensuse15.2:
+    builddeps:
+      - make
+    deps:
+      - python3
+  opensuse.tumbleweed:
     builddeps:
       - make
     deps:
@@ -94,6 +76,11 @@ packages:
     deps:
       - python3
   ubuntu18.04:
+    builddeps:
+      - make
+    deps:
+      - python3
+  ubuntu20.04:
     builddeps:
       - make
     deps:

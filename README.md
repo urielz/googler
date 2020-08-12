@@ -3,8 +3,8 @@
 <p align="center">
 <a href="https://github.com/jarun/googler/releases/latest"><img src="https://img.shields.io/github/release/jarun/googler.svg?maxAge=600" alt="Latest release" /></a>
 <a href="https://repology.org/project/googler/versions"><img src="https://repology.org/badge/tiny-repos/googler.svg" alt="Availability"></a>
-<a href="https://github.com/jarun/googler/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-yellow.svg?maxAge=2592000" alt="License" /></a>
-<a href="https://circleci.com/gh/jarun/workflows/googler"><img src="https://img.shields.io/circleci/project/github/jarun/googler.svg" alt="Build Status" /></a>
+<a href="https://github.com/jarun/googler/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-GPLv3-yellowgreen.svg?maxAge=2592000" alt="License" /></a>
+<a href="https://github.com/jarun/googler/actions"><img src="https://github.com/jarun/googler/workflows/test/badge.svg?branch=master" alt="Build Status" /></a>
 <a href="https://repl.it/github/jarun/googler"><img src="https://repl.it/badge/github/jarun/googler?maxAge=2592000" alt="Repl.it" /></a>
 
 </p>
@@ -19,18 +19,110 @@
 
 `googler` isn't affiliated to Google in any way.
 
+Here are some usage examples:
+
+1. Google **hello world**:
+
+        $ googler hello world
+
+2. Fetch **15 results** updated within the last **14 months**, starting from the **3<sup>rd</sup> result** for the keywords **jungle book** in **site** imdb.com:
+
+        $ googler -n 15 -s 3 -t m14 -w imdb.com jungle book
+
+    Or instead of the last 14 months, look for results specifically between Apr 4, 2016 and Dec 31, 2016:
+
+        $ googler -n 15 -s 3 --from 04/04/2016 --to 12/31/2016 -w imdb.com jungle book
+
+3. Read recent **news** on gadgets:
+
+        $ googler -N gadgets
+
+4. Fetch results on IPL cricket from **Google India** server in **English**:
+
+        $ googler -c in -l en IPL cricket
+
+5. Search for **videos** on PyCon 2020:
+
+        $ googler -V PyCon 2020
+
+6. Search **quoted text**:
+
+        $ googler it\'s a \"beautiful world\" in spring
+
+7. Search for a **specific file type**:
+
+        $ googler instrumental filetype:mp3
+
+8. Disable **automatic spelling correction**, e.g. fetch results for `googler` instead of `google`:
+
+        $ googler -x googler
+
+9. **I'm feeling lucky** search:
+
+        $ googler -j leather jackets
+
+10. **Website specific** search:
+
+        $ googler -w amazon.com -w ebay.com digital camera
+
+    Site specific search continues at omniprompt.
+
+11. Positional arguments are joined (with delimiting whitespace) to form the final query, so you can be creative with your aliases. For instance, always **exclude** seoarticlefactory.com from search results:
+
+        $ alias googler='googler " -site:seoarticlefactory.com"'
+        $ googler '<hugely popular keyword filled with SEO garbage>'
+
+12. Alias to find **definitions of words**:
+
+        alias define='googler -n 2 define'
+
+13. Look up `n`, `p`, `o`, `O`, `q`, `g keywords` or a result index at the **omniprompt**: as the omniprompt recognizes these keys or index strings as commands, you need to prefix them with `g`, e.g.,
+
+        g n
+        g g keywords
+        g 1
+
+14. Input and output **redirection**:
+
+        $ googler -C hello world < input > output
+    Note that `-C` is required to avoid printing control characters (for colored output).
+
+15. **Pipe** output:
+
+        $ googler -C hello world | tee output
+
+16. Use a **custom color scheme**, e.g., a warm color scheme designed for Solarized Dark ([screenshot](https://i.imgur.com/6L8VlfS.png)):
+
+        $ googler --colors bjdxxy google
+        $ GOOGLER_COLORS=bjdxxy googler google
+
+17. Tunnel traffic through an **HTTPS proxy**, e.g., a local Privoxy instance listening on port 8118:
+
+        $ googler --proxy localhost:8118 google
+
+    By default the environment variable `https_proxy` is used, if defined.
+
+18. Quote multiple search keywords to auto-complete (using completion script):
+
+        $ googler 'hello w<TAB>
+
+19. More **help**:
+
+        $ googler -h
+        $ man googler
+
 More fun stuff you can try with `googler`:
 
 - [googler on the iPad](https://github.com/jarun/googler/wiki/googler-on-the-iPad)
 - [Print content of results to terminal or listen to it](https://github.com/jarun/googler/wiki/Print-content-of-results-to-terminal-or-listen-to-it)
 - [Terminal Reading Mode or Reader View](https://github.com/jarun/googler/wiki/Terminal-Reading-Mode-or-Reader-View)
-- [Stream YouTube videos on desktop](https://github.com/jarun/googler/wiki/Stream-YouTube-videos-on-desktop)
+- [Stream YouTube videos on desktop](https://github.com/jarun/googler/wiki/Search-and-stream-videos-from-the-terminal)
 - [Search error on StackOverflow from terminal](https://github.com/jarun/googler/wiki/Search-error-on-StackOverflow-from-terminal)
 
 *Love smart and efficient utilities? Explore [my repositories](https://github.com/jarun?tab=repositories). Buy me a cup of coffee if they help you.*
 
 <p align="center">
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RMLTQ76JSXJ4Q"><img src="https://img.shields.io/badge/PayPal-donate-1eb0fc.svg" alt="Donate via PayPal!" /></a>
+<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=RMLTQ76JSXJ4Q"><img src="https://img.shields.io/badge/donate-PayPal-1eb0fc.svg" alt="Donate via PayPal!" /></a>
 </p>
 
 ### Table of contents
@@ -52,7 +144,7 @@ More fun stuff you can try with `googler`:
     - [Text-based browser integration](#text-based-browser-integration)
     - [Colors](#colors)
     - [Domain-only URL](#domain-only-url)
-- [Examples](#examples)
+    - [Windows Subsystem for Linux (WSL)](#windows-subsystem-for-linux-wsl)
 - [Troubleshooting](#troubleshooting)
 - [Notes](#notes)
 - [Contributions](#contributions)
@@ -60,7 +152,7 @@ More fun stuff you can try with `googler`:
 
 ### Features
 
-- Google Search, Google Site Search, Google News
+- Google Search, Google Site Search, Google News, Google Videos
 - Fast and clean (no ads, stray URLs or clutter), custom color
 - Navigate result pages from omniprompt, open URLs in browser
 - Effortless keyword-based site search with googler @t add-on
@@ -137,7 +229,7 @@ To remove `googler` and associated docs, run
 
 To install the latest stable version, run
 
-    $ sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.0/googler && sudo chmod +x /usr/local/bin/googler
+    $ sudo curl -o /usr/local/bin/googler https://raw.githubusercontent.com/jarun/googler/v4.2/googler && sudo chmod +x /usr/local/bin/googler
 
 You could then let googler upgrade itself by running
 
@@ -160,11 +252,10 @@ Search keyword and option completion scripts for Bash, Fish and Zsh can be found
 #### Cmdline options
 
 ```
-usage: googler [-h] [-s N] [-n N] [-N] [-c TLD] [-l LANG] [-x]
-               [--colorize [{auto,always,never}]] [-C] [--colors COLORS] [-j]
-               [-t dN] [-w SITE] [--unfilter] [-p PROXY] [--noua] [--notweak]
-               [--json] [--url-handler UTIL] [--show-browser-logs] [--np] [-u]
-               [--include-git] [-v] [-d]
+usage: googler [-h] [-s N] [-n N] [-N] [-V] [-c TLD] [-l LANG] [-x] [--colorize [{auto,always,never}]]
+               [-C] [--colors COLORS] [-j] [-t dN] [--from FROM] [--to TO] [-w SITE] [--unfilter]
+               [-p PROXY] [--notweak] [--json] [--url-handler UTIL] [--show-browser-logs] [--np] [-4]
+               [-6] [-u] [--include-git] [-v] [-d]
                [KEYWORD [KEYWORD ...]]
 
 Google from the command-line.
@@ -177,31 +268,36 @@ optional arguments:
   -s N, --start N       start at the Nth result
   -n N, --count N       show N results (default 10)
   -N, --news            show results from news section
-  -c TLD, --tld TLD     country-specific search with top-level domain .TLD,
-                        e.g., 'in' for India
+  -V, --videos          show results from videos section
+  -c TLD, --tld TLD     country-specific search with top-level domain .TLD, e.g., 'in' for India
   -l LANG, --lang LANG  display in language LANG
   -x, --exact           disable automatic spelling correction
   --colorize [{auto,always,never}]
-                        whether to colorize output; defaults to 'auto', which
-                        enables color when stdout is a tty device; using
-                        --colorize without an argument is equivalent to
+                        whether to colorize output; defaults to 'auto', which enables color when stdout
+                        is a tty device; using --colorize without an argument is equivalent to
                         --colorize=always
   -C, --nocolor         equivalent to --colorize=never
   --colors COLORS       set output colors (see man page for details)
   -j, --first, --lucky  open the first result in web browser and exit
-  -t dN, --time dN      time limit search [h5 (5 hrs), d5 (5 days), w5 (5
-                        weeks), m5 (5 months), y5 (5 years)]
+  -t dN, --time dN      time limit search [h5 (5 hrs), d5 (5 days), w5 (5 weeks), m5 (5 months), y5 (5
+                        years)]
+  --from FROM           starting date/month/year of date range; must use American date format with
+                        slashes, e.g., 2/24/2020, 2/2020, 2020; can be used in conjunction with --to,
+                        and overrides -t, --time
+  --to TO               ending date/month/year of date range; see --from
   -w SITE, --site SITE  search a site using Google
   --unfilter            do not omit similar results
   -p PROXY, --proxy PROXY
-                        tunnel traffic through an HTTP proxy; PROXY is of the
-                        form [http://][user:password@]proxyhost[:port]
-  --noua                legacy option (no effect)
+                        tunnel traffic through an HTTP proxy; PROXY is of the form
+                        [http://][user:password@]proxyhost[:port]
   --notweak             disable TCP optimizations and forced TLS 1.2
   --json                output in JSON format; implies --noprompt
   --url-handler UTIL    custom script or cli utility to open results
   --show-browser-logs   do not suppress browser output (stdout and stderr)
   --np, --noprompt      search and exit, do not prompt
+  -4, --ipv4            only connect over IPv4 (by default, IPv4 is preferred but IPv6 is used as a
+                        fallback)
+  -6, --ipv6            only connect over IPv6
   -u, --upgrade         perform in-place self-upgrade
   --include-git         when used with --upgrade, get latest git master
   -v, --version         show program's version number and exit
@@ -329,82 +425,11 @@ Please consult the manual of your terminal emulator as well as the [Wikipedia ar
 
 To show the domain names in search results instead of the expanded URL (and use lesser space), set the environment variable `DISABLE_URL_EXPANSION`.
 
-### Examples
+#### Windows Subsystem for Linux (WSL)
 
-1. Google **hello world**:
+On WSL, GUI browsers on the Windows side cannot be detected by default. You need to explicitly set the `BROWSER` environment variable to the path of a Windows executable. For instance, you can put the following in your shell's rc:
 
-       $ googler hello world
-
-2. Fetch **15 results** updated within the last **14 months**, starting from the **3<sup>rd</sup> result** for the keywords **jungle book** in **site** imdb.com:
-
-       $ googler -n 15 -s 3 -t m14 -w imdb.com jungle book
-
-3. Read recent **news** on gadgets:
-
-       $ googler -N gadgets
-
-4. Fetch results on IPL cricket from **Google India** server in **English**:
-
-       $ googler -c in -l en IPL cricket
-
-5. Search **quoted text**:
-
-       $ googler it\'s a \"beautiful world\" in spring
-
-6. Search for a **specific file type**:
-
-       $ googler instrumental filetype:mp3
-
-7. Disable **automatic spelling correction**, e.g. fetch results for `googler` instead of `google`:
-
-       $ googler -x googler
-
-8. **I'm feeling lucky** search:
-
-       $ googler -j leather jackets
-
-9. **Website specific** search:
-
-       $ googler -w amazon.com -w ebay.com digital camera
-    Site specific search continues at omniprompt.
-
-10. Alias to find **definitions of words**:
-
-        alias define='googler -n 2 define'
-
-11. Look up `n`, `p`, `o`, `O`, `q`, `g keywords` or a result index at the **omniprompt**: as the omniprompt recognizes these keys or index strings as commands, you need to prefix them with `g`, e.g.,
-
-        g n
-        g g keywords
-        g 1
-
-12. Input and output **redirection**:
-
-        $ googler -C hello world < input > output
-    Note that `-C` is required to avoid printing control characters (for colored output).
-
-13. **Pipe** output:
-
-        $ googler -C hello world | tee output
-
-14. Use a **custom color scheme**, e.g., a warm color scheme designed for Solarized Dark ([screenshot](https://i.imgur.com/6L8VlfS.png)):
-
-        $ googler --colors bjdxxy google
-        $ GOOGLER_COLORS=bjdxxy googler google
-
-15. Tunnel traffic through an **HTTPS proxy**, e.g., a local Privoxy instance listening on port 8118:
-
-        $ googler --proxy localhost:8118 google
-    By default the environment variable `https_proxy` is used, if defined.
-
-16. Quote multiple search keywords to auto-complete (using completion script):
-
-        $ googler 'hello w<TAB>
-
-17. More **help**:
-
-        $ googler -h
-        $ man googler
+    $ export BROWSER='/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'
 
 ### Troubleshooting
 

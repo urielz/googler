@@ -15,6 +15,7 @@ _googler () {
         -s --start
         -n --count
         -N --news
+        -V --videos
         -c --tld
         -l --lang
         -x --exact
@@ -23,6 +24,8 @@ _googler () {
         --colors
         -j --first --lucky
         -t --time
+        --from
+        --to
         -w --site
         --unfilter
         -p --proxy
@@ -44,6 +47,8 @@ _googler () {
         --colorize
         --colors
         -t --time
+        --from
+        --to
         -w --site
         -p --proxy
         --url-handler
